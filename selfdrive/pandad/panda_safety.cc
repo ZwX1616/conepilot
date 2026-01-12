@@ -24,7 +24,7 @@ void PandaSafety::updateMultiplexingMode() {
   if (!initialized_) {
     prev_obd_multiplexing_ = false;
     for (int i = 0; i < pandas_.size(); ++i) {
-      pandas_[i]->set_safety_model(cereal::CarParams::SafetyModel::ELM327, 1U);
+      pandas_[i]->set_safety_model(cereal::CarParams::SafetyModel::SILENT, 1U);
     }
     initialized_ = true;
   }
