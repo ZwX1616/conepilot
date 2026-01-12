@@ -25,6 +25,8 @@ NETWORK_TYPES = {
   NetworkType.ethernet: "Ethernet",
 }
 
+CONE_COLOR = rl.Color(255, 120, 50, int(255 * 0.9))
+BLK_COLOR = rl.Color(0, 0, 0, int(255 * 0.9))
 
 class DeviceStatus(Widget):
   def __init__(self):
@@ -109,7 +111,7 @@ class MiciHomeLayout(Widget):
     self._cell_high_txt = gui_app.texture("icons_mici/settings/network/cell_strength_high.png", 55, 35)
     self._cell_full_txt = gui_app.texture("icons_mici/settings/network/cell_strength_full.png", 55, 35)
 
-    self._openpilot_label = MiciLabel("openpilot", font_size=96, color=rl.Color(255, 255, 255, int(255 * 0.9)), font_weight=FontWeight.DISPLAY)
+    self._openpilot_label = MiciLabel("conepilot", font_size=69, color=CONE_COLOR, font_weight=FontWeight.DISPLAY)
     self._version_label = MiciLabel("", font_size=36, font_weight=FontWeight.ROMAN)
     self._large_version_label = MiciLabel("", font_size=64, color=rl.GRAY, font_weight=FontWeight.ROMAN)
     self._date_label = MiciLabel("", font_size=36, color=rl.GRAY, font_weight=FontWeight.ROMAN)
@@ -165,7 +167,7 @@ class MiciHomeLayout(Widget):
 
   def _get_version_text(self) -> tuple[str, str, str, str] | None:
     description = ui_state.params.get("UpdaterCurrentDescription")
-
+    """
     if description is not None and len(description) > 0:
       # Expect "version / branch / commit / date"; be tolerant of other formats
       try:
@@ -175,11 +177,16 @@ class MiciHomeLayout(Widget):
         return None
 
     return None
+    """
+    version = "Hold to start recording..." if not self._experimental_mode else "Ready to go. Good luck."
+    branch, commit, date = "", "", ""
+    return version, branch, commit, date
 
   def _render(self, _):
     # TODO: why is there extra space here to get it to be flush?
     text_pos = rl.Vector2(self.rect.x - 2 + HOME_PADDING, self.rect.y - 16)
     self._openpilot_label.set_position(text_pos.x, text_pos.y)
+    self._openpilot_label.set_color(BLK_COLOR if self._experimental_mode else CONE_COLOR)
     self._openpilot_label.render()
 
     if self._version_text is not None:
