@@ -31,6 +31,7 @@ commonmodel_lib = lenv.Library('commonmodel', common_src)
 lenvCython.Program('models/commonmodel_pyx.so', 'models/commonmodel_pyx.pyx', LIBS=[commonmodel_lib, *cython_libs], FRAMEWORKS=frameworks)
 tinygrad_files = ["#"+x for x in glob.glob(env.Dir("#tinygrad_repo").relpath + "/**", recursive=True, root_dir=env.Dir("#").abspath) if 'pycache' not in x]
 
+"""
 # Get model metadata
 for model_name in ['driving_vision', 'driving_policy', 'dmonitoring_model']:
   fn = File(f"models/{model_name}").abspath
@@ -68,3 +69,4 @@ if "USBGPU" in os.environ:
     lenv.SideEffect('lock', [bp, bv])  # tg doesn't support multi-process so build serially
   else:
     print("USB GPU not detected... skipping")
+"""
