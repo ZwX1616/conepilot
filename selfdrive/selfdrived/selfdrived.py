@@ -213,7 +213,8 @@ class SelfdriveD:
     cal_status = self.sm['liveCalibration'].calStatus
     if cal_status != log.LiveCalibrationData.Status.calibrated:
       if cal_status == log.LiveCalibrationData.Status.uncalibrated:
-        self.events.add(EventName.calibrationIncomplete)
+        #self.events.add(EventName.calibrationIncomplete)
+        pass
       elif cal_status == log.LiveCalibrationData.Status.recalibrating:
         if not self.recalibrating_seen:
           set_offroad_alert("Offroad_Recalibration", True)
