@@ -6,6 +6,7 @@ from openpilot.selfdrive.ui.mici.onroad.torque_bar import TorqueBar
 
 BRAKE_MAX = 100
 GAS_MAX = 100
+PEDAL_IDLE_SZ = 20
 PEDAL_FADE_MIN = 70
 PEDAL_FADE_MAX = 255
 
@@ -94,7 +95,7 @@ class DriverInputs(Widget):
       self.rect.height,
     )
 
-    brake_height = max(1, int(ui_state.sm['carState'].brake / BRAKE_MAX * self.rect.height))
+    brake_height = PEDAL_IDLE_SZ + int(ui_state.sm['carState'].brake / BRAKE_MAX * (self.rect.height - PEDAL_IDLE_SZ))
     draw_capsule_vfade(rl.Rectangle(side_rect.x,
         side_rect.y + side_rect.height - brake_height,
         SIDE_PANEL_WIDTH/2,
@@ -102,7 +103,7 @@ class DriverInputs(Widget):
       with_alpha(rl.RED, PEDAL_FADE_MIN + brake_height / self.rect.height * (PEDAL_FADE_MAX-PEDAL_FADE_MIN)),
       with_alpha(rl.RED, PEDAL_FADE_MIN))
 
-    gas_height = max(1, int(ui_state.sm['carState'].gas / GAS_MAX * self.rect.height))
+    gas_height = PEDAL_IDLE_SZ + int(ui_state.sm['carState'].gas / GAS_MAX * (self.rect.height - PEDAL_IDLE_SZ))
     draw_capsule_vfade(rl.Rectangle(side_rect.x + SIDE_PANEL_WIDTH / 2,
         side_rect.y + side_rect.height - gas_height,
         SIDE_PANEL_WIDTH/2,
