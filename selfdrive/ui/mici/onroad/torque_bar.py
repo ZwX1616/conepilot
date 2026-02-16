@@ -180,8 +180,8 @@ class TorqueBar(Widget):
 
   def _render(self, rect: rl.Rectangle) -> None:
     # adjust y pos with torque
-    torque_line_offset = np.interp(abs(self._torque_filter.x), [0.5, 1], [22, 26])
-    torque_line_height = np.interp(abs(self._torque_filter.x), [0.5, 1], [14, 56])
+    torque_line_offset = np.interp(abs(self._torque_filter.x), [0.5, 1], [22, 22])
+    torque_line_height = np.interp(abs(self._torque_filter.x), [0.5, 1], [14, 14])
 
     # animate alpha and angle span
     if not self._demo:
