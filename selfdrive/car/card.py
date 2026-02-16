@@ -34,7 +34,7 @@ def obd_callback(params: Params) -> ObdCallback:
       cloudlog.warning(f"Setting OBD multiplexing to {obd_multiplexing}")
       params.remove("ObdMultiplexingChanged")
       params.put_bool("ObdMultiplexingEnabled", obd_multiplexing)
-      params.get_bool("ObdMultiplexingChanged", block=True)
+      params.get_bool("ObdMultiplexingChanged", block=False)
       cloudlog.warning("OBD multiplexing set successfully")
   return set_obd_multiplexing
 

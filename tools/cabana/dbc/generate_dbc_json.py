@@ -17,6 +17,8 @@ def generate_dbc_dict() -> dict[str, str]:
         dbc_map[platform.name] = platform.config.dbc_dict[Bus.main]
       elif Bus.party in platform.config.dbc_dict:
         dbc_map[platform.name] = platform.config.dbc_dict[Bus.party]
+      elif Bus.cam in platform.config.dbc_dict:
+        dbc_map[platform.name] = platform.config.dbc_dict[Bus.cam] # 1 for porch
       else:
         raise ValueError("Unknown main type")
 
