@@ -5,7 +5,7 @@ from openpilot.selfdrive.ui.ui_state import ui_state
 from openpilot.system.ui.lib.application import gui_app
 from openpilot.system.ui.widgets import Widget
 
-MAIN_COLOR = rl.Color(*rl.RED)
+MAIN_COLOR = rl.Color(*rl.LIME)
 G_METER_SIZE = 80
 G_METER_MAX = 1.5
 G_TRACK_MAX = 40
@@ -31,7 +31,7 @@ class GMeter(Widget):
       self.rect.height
     )
 
-    cx = main_rect.x + main_rect.width - 60
+    cx = main_rect.x + 60
     cy = main_rect.y + 60
     rl.draw_texture(self._background, int(cx - G_METER_SIZE/2),
                     int(cy - G_METER_SIZE/2),
@@ -42,7 +42,7 @@ class GMeter(Widget):
       _gx, _gy = zip(*g_chunk)
       px = sum(_gx) / len(_gx) / G_METER_MAX * G_METER_SIZE / 2 + cx
       py = sum(_gy) / len(_gy) / G_METER_MAX * G_METER_SIZE / 2 + cy
-      t = max(0, min(255, 160 - i * 20))
+      t = max(0, min(255, 255 - i * 30))
       col = rl.Color(MAIN_COLOR.r, MAIN_COLOR.g, MAIN_COLOR.b, t)
       rl.draw_circle(int(px), int(py), 5, col)
 
