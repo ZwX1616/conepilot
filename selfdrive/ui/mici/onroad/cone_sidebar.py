@@ -5,35 +5,12 @@ from openpilot.system.ui.widgets import Widget
 
 SIDEBAR_WIDTH = SIDE_PANEL_WIDTH - 4
 
-def draw_triangle_cone48(x, y, scale=6, color=None, outline=True):
-    # 48x48 triangle with flat base, centered
-    s = int(scale)
-    col = color or rl.Color(245, 130, 20, 255)
-    out = rl.fade(rl.BLACK, 0.35)
-
-    # vertices in "pixel space" (0..47)
-    ax, ay = 24, 2
-    bx, by = 6, 45
-    cx, cy = 42, 45
-
-    # draw filled triangle
-    rl.draw_triangle(
-        rl.Vector2(x + ax*s, y + ay*s),
-        rl.Vector2(x + bx*s, y + by*s),
-        rl.Vector2(x + cx*s, y + cy*s),
-        col
-    )
-
-    # optional outline
-    if outline:
-        rl.draw_line_ex(rl.Vector2(x + ax*s, y + ay*s), rl.Vector2(x + bx*s, y + by*s), max(1, s//2), out)
-        rl.draw_line_ex(rl.Vector2(x + bx*s, y + by*s), rl.Vector2(x + cx*s, y + cy*s), max(1, s//2), out)
-        rl.draw_line_ex(rl.Vector2(x + cx*s, y + cy*s), rl.Vector2(x + ax*s, y + ay*s), max(1, s//2), out)
-
-
 class ConeSidebar(Widget):
   def __init__(self, demo: bool = False):
     super().__init__()
+    side_img = rl.load_image("../assets/images/cone_side.png")
+    self.side_tex = rl.load_texture_from_image(side_img)
+    rl.unload_image(side_img)
 
   def _render(self, _):
     side_rect = rl.Rectangle(
@@ -43,5 +20,5 @@ class ConeSidebar(Widget):
       self.rect.height,
     )
 
-  draw_triangle_cone48(int(0), 0, scale=1)
+    rl.draw_texture(self.side_tex, 4, 0, rl.Color(160, 160, 160, 255))
 
