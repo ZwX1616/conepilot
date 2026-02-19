@@ -11,6 +11,7 @@ from openpilot.selfdrive.ui.mici.onroad.hud_renderer import HudRenderer
 from openpilot.selfdrive.ui.mici.onroad.model_renderer import ModelRenderer
 from openpilot.selfdrive.ui.mici.onroad.driver_inputs import DriverInputs
 from openpilot.selfdrive.ui.mici.onroad.g_meter import GMeter
+from openpilot.selfdrive.ui.mici.onroad.tachometer import Tachometer
 from openpilot.selfdrive.ui.mici.onroad.cone_sidebar import ConeSidebar
 from openpilot.selfdrive.ui.mici.onroad.cameraview import CameraView
 from openpilot.system.ui.lib.application import FontWeight, gui_app, MousePos, MouseEvent
@@ -157,6 +158,7 @@ class AugmentedRoadView(CameraView):
     self._driver_state_renderer = DriverStateRenderer()
     self._driver_inputs = DriverInputs()
     self._g_meter = GMeter()
+    self._tachometer = Tachometer()
     self._cone_sidebar = ConeSidebar()
     self._offroad_label = UnifiedLabel("start the car to\nuse openpilot", 54, FontWeight.DISPLAY,
                                        text_color=rl.Color(255, 255, 255, int(255 * 0.9)),
@@ -246,6 +248,7 @@ class AugmentedRoadView(CameraView):
     # Use self._content_rect for positioning within camera bounds
     self._driver_inputs.render(self.rect)
     self._g_meter.render(self.rect)
+    self._tachometer.render(self.rect)
     self._cone_sidebar.render(self.rect)
 
     self._bookmark_icon.render(self.rect)
