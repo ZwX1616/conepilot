@@ -36,6 +36,8 @@ class GMeter(Widget):
     rl.draw_texture(self._background, int(cx - G_METER_SIZE/2),
                     int(cy - G_METER_SIZE/2),
                     rl.Color(255, 255, 255, 72))
+    rl.draw_circle(int(cx), int(cy), 3, rl.Color(255, 255, 255, int(0.25 * 255)))
+    rl.draw_circle_lines(int(cx), int(cy), G_METER_SIZE/2/G_METER_MAX, rl.Color(255, 255, 255, int(0.25 * 255)))
     lt = list(self.track)
     for i in range(G_TRACK_MAX//G_TRACK_SMOOTH_N):
       g_chunk = lt[G_TRACK_MAX-G_TRACK_SMOOTH_N*i-G_TRACK_SMOOTH_N:G_TRACK_MAX-G_TRACK_SMOOTH_N*i]
