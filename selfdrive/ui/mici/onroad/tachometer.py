@@ -7,6 +7,7 @@ from openpilot.system.ui.widgets import Widget
 
 MAIN_COLOR = rl.Color(*rl.LIME)
 TACH_SIZE = 80
+SPEED_FSZ = 28
 SEG_PER_1K = 8
 TACH_0K_DEG = 150
 TACH_8K_DEG = 360 + 30
@@ -20,6 +21,8 @@ class Tachometer(Widget):
 
   def _render(self, _):
     rpm = ui_state.sm['carState'].engineRpm
+    gps_speed = ui_state.sm['gpsLocationExternal'].speed
+    gps_mph = '%d' % (gps_speed * 2.23694)
     # self.track.append(rpm)
 
     main_rect = rl.Rectangle(
@@ -36,3 +39,8 @@ class Tachometer(Widget):
                     rl.Color(255, 255, 255, 72))
     t_end = TACH_0K_DEG + rpm / 8000 * (TACH_8K_DEG - TACH_0K_DEG)
     rl.draw_ring(rl.Vector2(cx, cy), TACH_SIZE/2-5, TACH_SIZE/2, TACH_0K_DEG, t_end, int(SEG_PER_1K*rpm/1000), rl.Color(255, 255, 255, 128))
+
+    tw = rl.measure_text(gps_mph, SPEED_FSZ)
+    tx = cx - tw // 2
+    ty = cy - SPEED_FSZ // 2
+    rl.draw_text(gps_mph, int(tx), int(ty), SPEED_FSZ, MAIN_COLOR)
